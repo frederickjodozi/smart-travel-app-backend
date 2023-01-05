@@ -1,5 +1,6 @@
 {
   "name": "smart-travel-app-backend",
+  "author": "Frederick Jodozi",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -13,7 +14,6 @@
     "type": "git",
     "url": "git+https://github.com/frederickjodozi/smart-travel-app-backend.git"
   },
-  "author": "",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/frederickjodozi/smart-travel-app-backend/issues"
