@@ -21,10 +21,10 @@ const locationSchema = new mongoose.Schema({
     }
   },
   owner: {
-    type: String,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'user',
     required: true,
-    select: false
   }
 });
 
-module.exports = new mongoose.model('Location', locationSchema);
+module.exports = mongoose.model('Location', locationSchema);
