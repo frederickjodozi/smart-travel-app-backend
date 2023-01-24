@@ -7,6 +7,8 @@ const app = express();
 
 mongoose.connect('mongodb://localhost:27017/smart-travel-app');
 
+app.use(express.json());
+
 app.use(routes);
 
 app.listen(PORT, HOST, () => console.log(`Listening on ${HOST}:${PORT}!`));
