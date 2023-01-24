@@ -9,7 +9,8 @@ const locationSchema = new mongoose.Schema({
     required: true
   },
   text: {
-    type: String
+    type: String,
+    required: true
   },
   image: {
     type: String,
@@ -18,7 +19,8 @@ const locationSchema = new mongoose.Schema({
         return validator.isURL(imageUrl);
       },
       message: 'The location image must be a valid URL'
-    }
+    },
+    required: true
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
