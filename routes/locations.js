@@ -6,8 +6,9 @@ const {
   deleteLocation
 } = require('../controllers/locations');
 
-router.get('/', getLocations);
-router.post('/', createLocation);
-router.delete('/:id', deleteLocation);
+router.route('/mylocations')
+  .get(getLocations)
+  .post(createLocation)
+  .delete(deleteLocation);
 
 module.exports = router;
