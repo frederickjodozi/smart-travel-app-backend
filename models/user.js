@@ -1,29 +1,37 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const userSchema = new mongoose.Schema({
-  email: {
-    type: String,
-    validate: {
-      validator(email) {
-        return validator.isEmail(email);
+const userSchema = new mongoose.Schema(
+  {
+    email: {
+      type: String,
+      validate: {
+        validator(email) {
+          return validator.isEmail(email);
+        },
+        message: 'A valid email address is required'
       },
-      message: 'A valid email address is required'
+      unique: true
     },
-    unique: true,
+    password: {
+      type: String,
+      required: true,
+      select: false
+    },
+    name: {
+      type: String,
+      minLength: 2,
+      maxLength: 30
+    }
   },
-  password: {
-    type: String,
-    minLength: 8,
-    maxLength: 30,
-    required: true,
-    select: false
-  },
-  name: {
-    type: String,
-    minLength: 2,
-    maxLength: 30,
-    required: true
+  {
+    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
+  }
+);
+
+userSchema.set('toJSON', {
+  transform: function (doc, ret, options) {
+    delete ret.__v;
   }
 });
 
