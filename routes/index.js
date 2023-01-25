@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
-const auth = require('../middlewares/auth');
+const auth = require('../middleware/auth');
 const userRouter = require('./users');
 const locationRouter = require('./locations');
 const NotFoundError = require('../errors/NotFoundError');

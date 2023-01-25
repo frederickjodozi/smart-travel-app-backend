@@ -2,7 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const { registerUser, userLogin } = require('./controllers/users');
 const routes = require('./routes/index');
-const errorHandler = require('./middlewares/errorHandler');
+const errorHandler = require('./middleware/errorHandler');
 
 const { PORT = 3000, HOST = 'localhost' } = process.env;
 const app = express();
