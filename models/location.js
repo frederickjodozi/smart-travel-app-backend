@@ -11,7 +11,7 @@ const locationSchema = new mongoose.Schema(
     },
     text: {
       type: String,
-      required: true
+      required: true,
     },
     image: {
       type: String,
@@ -37,7 +37,6 @@ const locationSchema = new mongoose.Schema(
 locationSchema.set('toJSON', {
   transform: function (doc, ret, options) {
     delete ret.__v;
-    delete ret.text;
   }
 });
 
