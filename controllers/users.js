@@ -2,6 +2,8 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 const User = require('../models/user');
+const BadRequestError = require('../errors/BadRequestError');
+const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const generateToken = (id) => {
   return jwt.sign({ id }, 'JWT_SECRET', { expiresIn: '7d' });
@@ -11,13 +13,13 @@ const registerUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new Error('Please enter an email and a password');
+    throw new BadRequestError('Please enter an email and a password');
   }
 
   const userExists = await User.findOne({ email });
 
   if (userExists) {
-    throw new Error('A user with this email already exists');
+    throw new BadRequestError('A user with this email already exists');
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -40,7 +42,7 @@ const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new Error('Invalid email or password');
+    throw new BadRequestError('Invalid email or password');
   }
 
   const user = await User.findOne({ email }, '+password');
@@ -58,7 +60,7 @@ const userLogin = asyncHandler(async (req, res) => {
       token: token
     });
   } else {
-    throw new Error('Invalid email or password');
+    throw new BadRequestError('Invalid email or password');
   }
 });
 
@@ -67,7 +69,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 
   const currentUser = await User.findById(userId);
   if (!currentUser) {
-    throw new Error('Current user not found');
+    throw new UnauthorizedError('Invalid Json Web Token');
   }
 
   res.status(200).json(currentUser);
@@ -78,7 +80,7 @@ const updateCurrentUser = asyncHandler(async (req, res) => {
   const { name } = req.body;
 
   if (!name) {
-    throw new Error('Please fill the name field');
+    throw new BadRequestError('Please fill the name field');
   }
 
   const updatedUser = await User.findByIdAndUpdate(

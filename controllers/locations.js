@@ -1,5 +1,8 @@
 const asyncHandler = require('express-async-handler');
 const Location = require('../models/location');
+const BadRequestError = require('../errors/BadRequestError');
+const ForbiddenError = require('../errors/ForbiddenError');
+const NotFoundError = require('../errors/NotFoundError');
 
 const getLocations = asyncHandler(async (req, res) => {
   const { userId } = req;
@@ -7,7 +10,7 @@ const getLocations = asyncHandler(async (req, res) => {
   const userLocations = await Location.find({ owner: userId });
 
   if (!userLocations) {
-    throw new Error(`Couldn't find any saved locations for this user`);
+    throw new NotFoundError(`Couldn't find any saved locations for this user`);
   }
 
   res.status(200).json(userLocations);
@@ -18,7 +21,7 @@ const createLocation = asyncHandler(async (req, res) => {
   const { title, text, image } = req.body;
 
   if (!title || !text || !image) {
-    throw new Error('The location needs a title, a text and an image');
+    throw new BadRequestError('The location needs a title, a text and an image');
   }
 
   const createdLocation = await Location.create({ title, text, image, owner: userId });
@@ -38,9 +41,9 @@ const deleteLocation = asyncHandler(async (req, res) => {
   const locationToDelete = await Location.findById(id);
 
   if (!locationToDelete) {
-    throw new Error(`Couldn't find location to delete`);
+    throw new NotFoundError(`Couldn't find location to delete`);
   } else if (!locationToDelete.owner.equals(userId)) {
-    throw new Error(`Cannot delete other user's locations`);
+    throw new ForbiddenError(`Cannot delete other user's locations`);
   }
 
   const deletedLocation = await Location.findByIdAndDelete(locationToDelete._id);
