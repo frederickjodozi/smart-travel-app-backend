@@ -1,9 +1,11 @@
 const router = require('express').Router();
 const asyncHandler = require('express-async-handler');
 
+const auth = require('../middlewares/auth');
 const userRouter = require('./users');
 const locationRouter = require('./locations');
 
+router.use(auth);
 router.use('/users', userRouter);
 router.use('/locations', locationRouter);
 

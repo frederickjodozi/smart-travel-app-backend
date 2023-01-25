@@ -2,7 +2,7 @@ const asyncHandler = require('express-async-handler');
 const Location = require('../models/location');
 
 const getLocations = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req;
 
   const userLocations = await Location.find({ owner: userId });
 
@@ -14,8 +14,8 @@ const getLocations = asyncHandler(async (req, res) => {
 });
 
 const createLocation = asyncHandler(async (req, res) => {
+  const { userId } = req;
   const { title, text, image } = req.body;
-  const { userId } = req.body;
 
   if (!title || !text || !image) {
     throw new Error('The location needs a title, a text and an image');
@@ -32,7 +32,7 @@ const createLocation = asyncHandler(async (req, res) => {
 });
 
 const deleteLocation = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req;
   const { id } = req.params;
 
   const locationToDelete = await Location.findById(id);

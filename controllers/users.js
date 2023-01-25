@@ -63,7 +63,7 @@ const userLogin = asyncHandler(async (req, res) => {
 });
 
 const getCurrentUser = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req;
 
   const currentUser = await User.findById(userId);
   if (!currentUser) {
@@ -74,7 +74,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
 });
 
 const updateCurrentUser = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req;
   const { name } = req.body;
 
   if (!name) {
@@ -95,7 +95,7 @@ const updateCurrentUser = asyncHandler(async (req, res) => {
 });
 
 const deleteCurrentUser = asyncHandler(async (req, res) => {
-  const { userId } = req.body;
+  const { userId } = req;
 
   const userToDelete = await User.findByIdAndDelete(userId);
 
