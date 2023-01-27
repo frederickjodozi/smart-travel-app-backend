@@ -1,6 +1,8 @@
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
 
+const { JWT_SECRET = 'secret' } = process.env;
+
 const auth = asyncHandler(async (req, res, next) => {
   const { authorization } = req.headers;
 
@@ -10,7 +12,7 @@ const auth = asyncHandler(async (req, res, next) => {
 
   const token = await authorization.replace('Bearer ', '');
 
-  const payload = await jwt.verify(token, 'JWT_SECRET');
+  const payload = await jwt.verify(token, JWT_SECRET);
 
   if (!payload) {
     throw new Error('Authorization required');

@@ -5,8 +5,10 @@ const User = require('../models/user');
 const BadRequestError = require('../errors/BadRequestError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
 
+const { JWT_SECRET = 'secret' } = process.env;
+
 const generateToken = (id) => {
-  return jwt.sign({ id }, 'JWT_SECRET', { expiresIn: '7d' });
+  return jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
 };
 
 const registerUser = asyncHandler(async (req, res) => {
