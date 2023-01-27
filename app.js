@@ -11,7 +11,7 @@ const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
 
 // INITIALIZE APP //
-const { PORT = 3000, HOST = 'localhost' } = process.env;
+const { PORT = 3000, HOST = 'localhost', NODE_ENV = 'development' } = process.env;
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/smart-travel-app');
@@ -32,6 +32,14 @@ app.use(requestLogger);
 app.use(express.json());
 
 // ROUTES //
+NODE_ENV === 'development'
+  ? app.get('/crash-test', () => {
+      setTimeout(() => {
+        throw new Error('Server will crash now');
+      }, 0);
+    })
+  : '';
+
 app.post('/users/register', validateUserRegistry, registerUser);
 
 app.post('/users/login', validateUserLogin, userLogin);
