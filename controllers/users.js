@@ -11,6 +11,7 @@ const generateToken = (id) => {
   return jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
 };
 
+// USER REGISTRATION AND LOGIN //
 const registerUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -77,6 +78,7 @@ const getCurrentUser = asyncHandler(async (req, res) => {
   res.status(200).json(currentUser);
 });
 
+// READ, UPDATE AND DELETE USER DATA //
 const updateCurrentUser = asyncHandler(async (req, res) => {
   const { userId } = req;
   const { name } = req.body;
