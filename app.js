@@ -3,9 +3,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const limiter = require('./middleware/limiter');
 const cors = require('cors');
+
 const { requestLogger, errorLogger } = require('./middleware/logger');
-const { validateUserRegistry, validateUserLogin } = require('./middleware/validation');
-const { registerUser, userLogin } = require('./controllers/users');
 const routes = require('./routes/index');
 const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
@@ -39,10 +38,6 @@ NODE_ENV === 'development'
       }, 0);
     })
   : '';
-
-app.post('/users/register', validateUserRegistry, registerUser);
-
-app.post('/users/login', validateUserLogin, userLogin);
 
 app.use(routes);
 
