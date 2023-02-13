@@ -10,7 +10,7 @@ const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
 
 // INITIALIZE APP //
-const { PORT = 3000, HOST = 'localhost', NODE_ENV = 'development' } = process.env;
+const { PORT = 3000, NODE_ENV = 'development' } = process.env;
 const app = express();
 
 mongoose.connect('mongodb://localhost:27017/smart-travel-app');
@@ -50,4 +50,4 @@ app.use(errors());
 app.use(errorHandler);
 
 // APP.LISTEN //
-app.listen(PORT, HOST, () => console.log(`Listening on ${HOST}:${PORT}!`));
+app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
