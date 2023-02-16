@@ -9,6 +9,8 @@ const routes = require('./routes/index');
 const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
 
+require('dotenv').config();
+
 // INITIALIZE APP //
 const { PORT = 3000, NODE_ENV = 'development' } = process.env;
 const app = express();
