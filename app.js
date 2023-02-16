@@ -50,4 +50,4 @@ app.use(errors());
 app.use(errorHandler);
 
 // APP.LISTEN //
-app.listen(PORT, () => console.log(`Listening on port ${PORT}!`));
+app.listen(PORT, () => console.log(`In ${NODE_ENV} mode and listening on port ${PORT}!`));
