@@ -1,5 +1,6 @@
 const { celebrate, Joi } = require('celebrate');
 const validator = require('validator');
+const { ObjectId } = require('mongoose').Types;
 
 const validateId = (value, helpers) => {
   if (ObjectId.isValid(value)) {
