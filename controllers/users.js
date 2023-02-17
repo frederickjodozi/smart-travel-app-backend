@@ -7,9 +7,7 @@ const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const { JWT_SECRET = 'secret' } = process.env;
 
-const generateToken = (id) => {
-  return jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
-};
+const generateToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
 
 // USER REGISTRATION AND LOGIN //
 const registerUser = asyncHandler(async (req, res) => {
@@ -29,7 +27,7 @@ const registerUser = asyncHandler(async (req, res) => {
   const hash = await bcrypt.hash(password, salt);
 
   const registeredUser = await User.create({
-    email: email,
+    email,
     password: hash
   });
 
@@ -60,7 +58,7 @@ const userLogin = asyncHandler(async (req, res) => {
     res.status(200).json({
       name: user.name,
       email: user.email,
-      token: token
+      token
     });
   } else {
     throw new BadRequestError('Invalid email or password');

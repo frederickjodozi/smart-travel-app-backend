@@ -1,12 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const helmet = require('helmet');
-const limiter = require('./middleware/limiter');
 const cors = require('cors');
+const { errors } = require('celebrate');
 
+const limiter = require('./middleware/limiter');
 const { requestLogger, errorLogger } = require('./middleware/logger');
 const routes = require('./routes/index');
-const { errors } = require('celebrate');
 const errorHandler = require('./middleware/errorHandler');
 
 require('dotenv').config();
@@ -33,20 +33,20 @@ app.use(requestLogger);
 app.use(express.json());
 
 // ROUTES //
-NODE_ENV === 'development'
-  ? app.get('/crash-test', () => {
-      setTimeout(() => {
-        throw new Error('Server will crash now');
-      }, 0);
-    })
-  : '';
+app.get('/crash-test', () => {
+  if (NODE_ENV !== 'production') {
+    setTimeout(() => {
+      throw new Error('Server will crash now');
+    }, 0);
+  }
+});
 
 app.use(routes);
 
 // ERROR LOGGING //
 app.use(errorLogger);
 
-//ERROR HANDLING //
+// ERROR HANDLING //
 app.use(errors());
 
 app.use(errorHandler);

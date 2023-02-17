@@ -30,7 +30,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.set('toJSON', {
-  transform: function (doc, ret, options) {
+  transform (doc, ret, options) {
     delete ret.__v;
   }
 });

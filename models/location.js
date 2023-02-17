@@ -35,7 +35,7 @@ const locationSchema = new mongoose.Schema(
 );
 
 locationSchema.set('toJSON', {
-  transform: function (doc, ret, options) {
+  transform (doc, ret, options) {
     delete ret.__v;
   }
 });
