@@ -12,10 +12,17 @@ const errorHandler = require('./middleware/errorHandler');
 require('dotenv').config();
 
 // INITIALIZE APP //
-const { PORT = 3000, NODE_ENV = 'development' } = process.env;
+const {
+  PORT = 3000,
+  NODE_ENV = 'development',
+  DB = 'mongodb',
+  DB_HOST = 'localhost',
+  DB_PORT = '27017',
+  DB_NAME = 'smart-travel-app'
+} = process.env;
 const app = express();
 
-mongoose.connect('mongodb://localhost:27017/smart-travel-app');
+mongoose.connect(`${DB}://${DB_HOST}:${DB_PORT}/${DB_NAME}`);
 
 // SECURITY //
 app.use(helmet());
