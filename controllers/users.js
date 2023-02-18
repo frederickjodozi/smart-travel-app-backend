@@ -11,16 +11,20 @@ const generateToken = (id) => jwt.sign({ id }, JWT_SECRET, { expiresIn: '7d' });
 
 // USER REGISTRATION AND LOGIN //
 const registerUser = asyncHandler(async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, name } = req.body;
 
-  if (!email || !password) {
-    throw new BadRequestError('Please enter an email and a password');
+  if (!email || !password || !name) {
+    throw new BadRequestError('Please enter an email, a password and a name');
   }
 
-  const userExists = await User.findOne({ email });
+  const userExists = await User.findOne({ $or: [{ email }, { name }] });
 
   if (userExists) {
-    throw new BadRequestError('A user with this email already exists');
+    if (userExists.email === email) {
+      throw new BadRequestError('A user with this email already exists');
+    } else if (userExists.name === name) {
+      throw new BadRequestError('A user with this name already exists');
+    }
   }
 
   const salt = await bcrypt.genSalt(10);
@@ -28,7 +32,8 @@ const registerUser = asyncHandler(async (req, res) => {
 
   const registeredUser = await User.create({
     email,
-    password: hash
+    password: hash,
+    name
   });
 
   if (!registeredUser) {
@@ -89,7 +94,7 @@ const updateCurrentUser = asyncHandler(async (req, res) => {
     userId,
     { $set: { name } },
     { runValidators: true, new: true }
-  )
+  );
 
   if (!updatedUser) {
     throw new Error("Couldn't update user");
@@ -104,7 +109,7 @@ const deleteCurrentUser = asyncHandler(async (req, res) => {
   const userToDelete = await User.findByIdAndDelete(userId);
 
   if (!userToDelete) {
-    throw new Error('Couldn\'t delete user');
+    throw new Error("Couldn't delete user");
   }
 
   res.status(204).json('');

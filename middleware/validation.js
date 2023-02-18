@@ -24,6 +24,11 @@ const validateUserRegistry = celebrate({
     }),
     password: Joi.string().required().messages({
       'any.required': 'A valid password is required'
+    }),
+    name: Joi.string().min(2).max(30).required().messages({
+      'string.min': 'The minimum length of the name field is 2',
+      'string.max': 'The maximum length of the name field is 30',
+      'any.required': 'The name field is required'
     })
   })
 });
