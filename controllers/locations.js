@@ -7,7 +7,7 @@ const NotFoundError = require('../errors/NotFoundError');
 const getLocations = asyncHandler(async (req, res) => {
   const { userId } = req;
 
-  const userLocations = await Location.find({ owner: userId });
+  const userLocations = await Location.find({ owner: userId }).populate('owner', 'name email');
 
   if (!userLocations) {
     throw new NotFoundError(`Couldn't find any saved locations for this user`);
