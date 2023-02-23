@@ -4,6 +4,7 @@ const asyncHandler = require('express-async-handler');
 const User = require('../models/user');
 const BadRequestError = require('../errors/BadRequestError');
 const UnauthorizedError = require('../errors/UnauthorizedError');
+const ConflictError = require('../errors/ConflictError');
 
 const { JWT_SECRET = 'secret' } = process.env;
 
@@ -21,9 +22,9 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     if (userExists.email === email) {
-      throw new BadRequestError('A user with this email already exists');
+      throw new ConflictError('A user with this email already exists');
     } else if (userExists.name === name) {
-      throw new BadRequestError('A user with this name already exists');
+      throw new ConflictError('A user with this name already exists');
     }
   }
 
