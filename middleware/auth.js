@@ -1,5 +1,6 @@
 const jwt = require('jsonwebtoken');
 const asyncHandler = require('express-async-handler');
+const UnauthorizedError = require('../errors/UnauthorizedError');
 
 const { JWT_SECRET = 'secret' } = process.env;
 
@@ -7,15 +8,17 @@ const auth = asyncHandler(async (req, res, next) => {
   const { authorization } = req.headers;
 
   if (!authorization || !authorization.startsWith('Bearer ')) {
-    throw new Error('Authorization header required');
+    throw new UnauthorizedError('Authorization header required');
   }
 
   const token = await authorization.replace('Bearer ', '');
 
-  const payload = await jwt.verify(token, JWT_SECRET);
+  let payload = 'payload';
 
-  if (!payload) {
-    throw new Error('Authorization required');
+  try {
+    payload = await jwt.verify(token, JWT_SECRET);
+  } catch (err) {
+    throw new UnauthorizedError('Invalid JSON Web Token')
   }
 
   req.userId = payload.id;
