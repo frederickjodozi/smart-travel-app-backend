@@ -7,11 +7,11 @@ const NotFoundError = require('../errors/NotFoundError');
 const getLocations = asyncHandler(async (req, res) => {
   const { userId } = req;
 
-  const userLocations = await Location.find({ owner: userId }).populate('owner', 'name email');
-
-  if (!userLocations) {
-    throw new NotFoundError(`Couldn't find any saved locations for this user`);
-  }
+  const userLocations = await Location.find({ owner: userId })
+    .populate('owner', 'name email')
+    .orFail(() => {
+      throw new NotFoundError(`Couldn't find any saved locations for this user`);
+    });
 
   res.status(200).json(userLocations);
 });
@@ -30,29 +30,35 @@ const createLocation = asyncHandler(async (req, res) => {
     throw new Error(`Couldn't create location`);
   }
 
-  const returnedLocation = await Location.findById(createdLocation._id, '-updated_at');
-  res.status(200).json(returnedLocation);
+  const returnedLocation = await Location.findById(
+    createdLocation._id,
+    '-updated_at'
+  ).orFail(() => {
+    throw new Error(`Created location but couldn't retrieve it`);
+  });
+
+  res.status(201).json(returnedLocation);
 });
 
 const deleteLocation = asyncHandler(async (req, res) => {
   const { userId } = req;
   const { id } = req.params;
 
-  const locationToDelete = await Location.findById(id);
-
-  if (!locationToDelete) {
+  const locationToDelete = await Location.findById(id).orFail(() => {
     throw new NotFoundError(`Couldn't find location to delete`);
-  } else if (!locationToDelete.owner.equals(userId)) {
+  });
+
+  if (!locationToDelete.owner.equals(userId)) {
     throw new ForbiddenError(`Cannot delete other user's locations`);
   }
 
-  const deletedLocation = await Location.findByIdAndDelete(locationToDelete._id);
-
-  if (!deletedLocation) {
-    throw new Error(`Couldn't delete location`);
+  try {
+    await Location.findByIdAndDelete(locationToDelete._id);
+  } catch (err) {
+    throw new Error("Couldn't delete location");
   }
 
-  res.status(204).json('');
+  res.status(204).json();
 });
 
 module.exports = { getLocations, createLocation, deleteLocation };
