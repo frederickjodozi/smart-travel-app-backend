@@ -31,13 +31,15 @@ const registerUser = asyncHandler(async (req, res) => {
   const salt = await bcrypt.genSalt(10);
   const hash = await bcrypt.hash(password, salt);
 
-  const registeredUser = await User.create({
-    email,
-    password: hash,
-    name
-  });
+  let registeredUser;
 
-  if (!registeredUser) {
+  try {
+    registeredUser = await User.create({
+      email,
+      password: hash,
+      name
+    });
+  } catch (err) {
     throw new Error("Couldn't register user");
   }
 
@@ -74,10 +76,9 @@ const userLogin = asyncHandler(async (req, res) => {
 const getCurrentUser = asyncHandler(async (req, res) => {
   const { userId } = req;
 
-  const currentUser = await User.findById(userId);
-  if (!currentUser) {
+  const currentUser = await User.findById(userId).orFail(() => {
     throw new UnauthorizedError('Invalid Json Web Token');
-  }
+  });
 
   res.status(200).json(currentUser);
 });
@@ -91,13 +92,15 @@ const updateCurrentUser = asyncHandler(async (req, res) => {
     throw new BadRequestError('Please fill the name field');
   }
 
-  const updatedUser = await User.findByIdAndUpdate(
-    userId,
-    { $set: { name } },
-    { runValidators: true, new: true }
-  );
+  let updatedUser;
 
-  if (!updatedUser) {
+  try {
+    updatedUser = await User.findByIdAndUpdate(
+      userId,
+      { $set: { name } },
+      { runValidators: true, new: true }
+    );
+  } catch (err) {
     throw new Error("Couldn't update user");
   }
 
