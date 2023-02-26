@@ -9,7 +9,7 @@ const { requestLogger, errorLogger } = require('./middleware/logger');
 const routes = require('./routes/index');
 const errorHandler = require('./middleware/errorHandler');
 
-require('dotenv').config();
+require('dotenv').config({ path: '../../../ect'});
 
 // INITIALIZE APP //
 const {
