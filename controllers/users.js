@@ -51,7 +51,7 @@ const userLogin = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    throw new BadRequestError('Invalid email or password');
+    throw new BadRequestError('Please fill both the email and password fields');
   }
 
   const user = await User.findOne({ email }, '+password');
@@ -69,7 +69,7 @@ const userLogin = asyncHandler(async (req, res) => {
       token
     });
   } else {
-    throw new BadRequestError('Invalid email or password');
+    throw new UnauthorizedError('Invalid email or password');
   }
 });
 
