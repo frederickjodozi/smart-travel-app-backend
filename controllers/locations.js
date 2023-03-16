@@ -57,8 +57,7 @@ const deleteLocation = asyncHandler(async (req, res) => {
   } catch (err) {
     throw new Error("Couldn't delete location");
   }
-
-  res.status(204).json();
+  res.status(200).json(locationToDelete);
 });
 
 module.exports = { getLocations, createLocation, deleteLocation };
