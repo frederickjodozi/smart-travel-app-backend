@@ -18,13 +18,13 @@ const getLocations = asyncHandler(async (req, res) => {
 
 const createLocation = asyncHandler(async (req, res) => {
   const { userId } = req;
-  const { title, text, image } = req.body;
+  const { title, text, image, country } = req.body;
 
   if (!title || !text || !image) {
     throw new BadRequestError('The location needs a title, a text and an image');
   }
 
-  const createdLocation = await Location.create({ title, text, image, owner: userId });
+  const createdLocation = await Location.create({ title, text, image, country, owner: userId });
 
   if (!createdLocation) {
     throw new Error(`Couldn't create location`);

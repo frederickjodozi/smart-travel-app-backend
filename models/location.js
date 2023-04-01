@@ -23,6 +23,9 @@ const locationSchema = new mongoose.Schema(
       },
       required: true
     },
+    country: {
+      type: String,
+    },
     owner: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
