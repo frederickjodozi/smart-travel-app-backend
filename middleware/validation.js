@@ -68,6 +68,9 @@ const validateNewLocation = celebrate({
     image: Joi.string().custom(validateURL).required().messages({
       'string.url': 'The image field must be a valid URL',
       'any.required': 'The image field is required'
+    }),
+    country: Joi.string().messages({
+      'string.base': 'Country must be a string'
     })
   })
 });
