@@ -5,8 +5,8 @@ const locationSchema = new mongoose.Schema(
   {
     title: {
       type: String,
-      minLength: 3,
-      maxLength: 30,
+      minLength: 2,
+      maxLength: 60,
       required: true
     },
     text: {
@@ -25,6 +25,8 @@ const locationSchema = new mongoose.Schema(
     },
     country: {
       type: String,
+      minLength: 2,
+      maxLength: 60,
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,

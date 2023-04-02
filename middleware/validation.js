@@ -57,9 +57,9 @@ const validateUserUpdate = celebrate({
 
 const validateNewLocation = celebrate({
   body: Joi.object().keys({
-    title: Joi.string().min(3).max(30).required().messages({
+    title: Joi.string().min(2).max(60).required().messages({
       'string.min': 'The minimum length of the title field is 2',
-      'string.max': 'The maximum length of the title field is 30',
+      'string.max': 'The maximum length of the title field is 60',
       'any.required': 'The title field is required'
     }),
     text: Joi.string().required().messages({
@@ -69,8 +69,9 @@ const validateNewLocation = celebrate({
       'string.url': 'The image field must be a valid URL',
       'any.required': 'The image field is required'
     }),
-    country: Joi.string().messages({
-      'string.base': 'Country must be a string'
+    country: Joi.string().min(2).max(60).messages({
+      'string.min': 'The minimum length of the country field is 2',
+      'string.max': 'The maximum length of the country field is 60',
     })
   })
 });
