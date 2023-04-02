@@ -27,6 +27,7 @@ const locationSchema = new mongoose.Schema(
       type: String,
       minLength: 2,
       maxLength: 60,
+      required: true
     },
     owner: {
       type: mongoose.Schema.Types.ObjectId,

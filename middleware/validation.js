@@ -72,10 +72,11 @@ const validateNewLocation = celebrate({
       'string.url': 'The image field must be a valid URL',
       'any.required': 'The image field is required'
     }),
-    country: Joi.string().min(2).max(60).messages({
+    country: Joi.string().min(2).max(60).required().messages({
       'string.base': 'The country field must be a string',
       'string.min': 'The minimum length of the country field is 2',
       'string.max': 'The maximum length of the country field is 60',
+      'any.required': 'The country field is required'
     })
   })
 });
