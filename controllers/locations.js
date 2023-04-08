@@ -20,8 +20,8 @@ const createLocation = asyncHandler(async (req, res) => {
   const { userId } = req;
   const { title, text, image, country } = req.body;
 
-  if (!title || !text || !image) {
-    throw new BadRequestError('The location needs a title, a text and an image');
+  if (!title || !text || !image || !country) {
+    throw new BadRequestError('The location needs a title, a text, an image and a country');
   }
 
   const createdLocation = await Location.create({ title, text, image, country, owner: userId });
