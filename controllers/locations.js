@@ -8,6 +8,7 @@ const getLocations = asyncHandler(async (req, res) => {
   const { userId } = req;
 
   const userLocations = await Location.find({ owner: userId })
+    .sort({ created_at: -1 })
     .populate('owner', 'name email')
     .orFail(() => {
       throw new NotFoundError(`Couldn't find any saved locations for this user`);
