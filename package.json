@@ -1,33 +1,16 @@
 {
   "name": "smart-travel-app-backend",
-  "author": "Frederick Jodozi",
   "version": "1.0.0",
-  "description": "",
+  "license": "ISC",
+  "author": "Frederick Jodozi",
+  "description": "Backend of the Smart Travel App: Your favorite App for travel and sightseeing location searching",
+  "homepage": "https://github.com/frederickjodozi/smart-travel-app-backend",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
     "lint": "eslint .",
     "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/frederickjodozi/smart-travel-app-backend.git"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/frederickjodozi/smart-travel-app-backend/issues"
-  },
-  "homepage": "https://github.com/frederickjodozi/smart-travel-app-backend#readme",
-  "devDependencies": {
-    "eslint": "^8.29.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-config-node": "^4.1.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^4.2.1",
-    "nodemon": "^2.0.20",
-    "prettier": "^2.8.1"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -44,5 +27,22 @@
     "mongoose": "^6.8.0",
     "validator": "^13.7.0",
     "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.29.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-node": "^4.1.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/frederickjodozi/smart-travel-app-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/frederickjodozi/smart-travel-app-backend/issues"
   }
 }
