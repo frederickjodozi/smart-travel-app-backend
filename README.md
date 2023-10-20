@@ -1,4 +1,4 @@
-## *smart-travel-app-frontend: TripleTen graduation personal project!*
+## *smart-travel-app-backend: TripleTen graduation personal project!*
 This project consists of my first self-directed FullStack application! It is a personal demonstration of all the skills I have learned from the TripleTen curriculum. I was very excited building it!
 
 The App consists of a Main page featuring a Searchbar that returns information about sightseeing locations from all over the world upon query. It will be possible for users to make a profile and save their favorite locations in an alternate page.
