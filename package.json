@@ -4,7 +4,7 @@
   "license": "ISC",
   "author": "Frederick Jodozi",
   "description": "Backend of the Smart Travel App: Your favorite App for travel and sightseeing location searching",
-  "homepage": "https://github.com/frederickjodozi/smart-travel-app-backend",
+  "homepage": "https://api.smarttravel.blinklab.com",
   "main": "index.js",
   "scripts": {
     "start": "node app.js",
