@@ -17,4 +17,8 @@ This project can be cloned on a local machine for studying and/or editing, and r
 
 I would first like to thank TripleTen for teaching me the skills required to build this project, and also OpenTripMap API for their amazing and free-to-use database of sightseeing locations: https://dev.opentripmap.org/product
 
+Below is a link to the FullStack App:
+
+### [Smart Travel App](https://smarttravel.blinklab.com)
+ 
 Stay tuned for updates :)
